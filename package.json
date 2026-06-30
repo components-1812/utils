@@ -1,8 +1,7 @@
 {
-  "name": "componentbase",
+  "name": "@components-1812/utils",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Utilities for web components",
   "scripts": {},
   "keywords": [
     "html",
@@ -16,5 +15,8 @@
   ],
   "author": "Franco Javier Gadea",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  }
 }

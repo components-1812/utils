@@ -171,16 +171,22 @@ export class AttributeTokenList {
 
         this.#supportedTokens = new CustomTokenList(supportedTokens);
 
-        // return new Proxy(this, {
-        //     get(target, prop, receiver) {
+        return new Proxy(this, {
+            get(target, prop, receiver) {
                 
-        //         const i = parseInt(prop);
+                const i = parseInt(prop);
                 
-        //         if(Number.isInteger(i)) return target.item(i);
+                if(Number.isInteger(i)) return target.item(i);
                 
-        //         return target[prop];
-        //     }
-        // });
+                const value = Reflect.get(target, prop, receiver);
+
+                if (typeof value === "function") {
+                    return value.bind(target);
+                }
+
+                return value;
+            }
+        });
     }
 
     _getAttributeValue(){

@@ -12,26 +12,40 @@
         <button id="add">add open</button>
         <button id="remove">remove open</button>
         <button id="toggle">toggle open</button>
+        <button id="replace">replace open with closed</button>
+        <button id="has">has open</button>
+        <button id="add-invalid">add invalid</button>
 
         <script type="module">
             
             import { Attr } from "../src/attributes/index.js";
             
             const el = document.getElementById('box');
-            const list = Attr.list.get(el, "state");
+            const list = Attr.list.get(el, "state", 
+                {
+                    supportedTokens: ["open", "closed"]
+                }
+            );
 
             console.log(list);
 
             document.getElementById("add").addEventListener("click", () => {
                 list.add("open");
             });
-
             document.getElementById("remove").addEventListener("click", () => {
                 list.remove("open");
             });
-
             document.getElementById("toggle").addEventListener("click", () => {
                 list.toggle("open");
+            });
+            document.getElementById("replace").addEventListener("click", () => {
+                list.replace("open", "closed");
+            });
+            document.getElementById("has").addEventListener("click", () => {
+                console.log(list.contains("open"));
+            });
+            document.getElementById("add-invalid").addEventListener("click", () => {
+                list.add("invalid");
             });
 
         </script>
