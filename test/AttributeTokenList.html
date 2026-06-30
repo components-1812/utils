@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <div id="box"></div>
+
+        <button id="add">add open</button>
+        <button id="remove">remove open</button>
+        <button id="toggle">toggle open</button>
+
+        <script type="module">
+            
+            import { Attr } from "../src/attributes/index.js";
+            
+            const el = document.getElementById('box');
+            const list = Attr.list.get(el, "state");
+
+            console.log(list);
+
+            document.getElementById("add").addEventListener("click", () => {
+                list.add("open");
+            });
+
+            document.getElementById("remove").addEventListener("click", () => {
+                list.remove("open");
+            });
+
+            document.getElementById("toggle").addEventListener("click", () => {
+                list.toggle("open");
+            });
+
+        </script>
+    </body>
+</html>
