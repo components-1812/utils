@@ -1,6 +1,8 @@
 //MARK: CustomTokenList
 export class CustomTokenList {
 
+
+
     #tokens;
 
     constructor(value, opt = {}){
@@ -155,6 +157,20 @@ export class CustomTokenList {
 
 //MARK: AttributeTokenList
 export class AttributeTokenList {
+
+    static cache = null;
+
+    static getIntance(element, attribute, opt = {}){
+        if(!element || !attribute) throw new Error("Element and attribute are required to get an attribute token list");
+
+        this.cache ??= new WeakMap();
+
+        const vault = this.cache.get(element) ?? this.cache.set(element, new Map()).get(element);
+
+        const list = vault.get(attribute) ?? vault.set(attribute, new AttributeTokenList(element, attribute, opt)).get(attribute);
+
+        return list;
+    }
 
     #element;
     #attribute;
@@ -337,3 +353,16 @@ export class AttributeTokenList {
         return this.tokens[Symbol.iterator]();
     }
 }
+
+
+export const AttributeTokenListUtils = {
+    AttributeTokenList,
+    CustomTokenList,
+    
+    get(element, attribute, opt = {}){
+
+        return AttributeTokenList.getIntance(element, attribute, opt);
+    }
+}
+
+export default AttributeTokenListUtils;

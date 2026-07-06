@@ -1,33 +1,16 @@
-import { setBooleanAttribute, getBooleanAttribute } from "./Boolean.js";
-import { AttributeTokenList } from "./AttributeTokenList.js";
-import { setNumberAttribute, getNumberAttribute } from "./Number.js";
-import { setStringAttribute, getStringAttribute } from "./String.js";
+import color from "./types/color.js";
+import list from "./types/AttributeTokenList.js";
+import number from "./types/number.js";
+import boolean from "./types/boolean.js";
+import string from "./types/string.js";
 
 
 export const Attr = {
-    boolean: {
-        set: setBooleanAttribute,
-        get: getBooleanAttribute
-    },
-    number: {
-        set: setNumberAttribute,
-        get: getNumberAttribute
-    },
-    string: {
-        set: setStringAttribute,
-        get: getStringAttribute
-    },
-    list: {
-        cache: new WeakMap(),
-        get(element, attribute, opt = {}){
+    color,
+    list,
+    number,
+    boolean,
+    string
+}
 
-            if(!element || !attribute) throw new Error("Element and attribute are required to get an attribute token list");
-
-            const vault = this.cache.get(element) ?? this.cache.set(element, new Map()).get(element);
-
-            const list = vault.get(attribute) ?? vault.set(attribute, new AttributeTokenList(element, attribute, opt)).get(attribute);
-
-            return list;
-        }
-    }
-};
+export default Attr;
