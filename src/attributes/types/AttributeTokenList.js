@@ -361,6 +361,8 @@ export const AttributeTokenListUtils = {
     
     get(element, attribute, opt = {}){
 
+        if(!element || !attribute) console.warn(`[Get AttributeTokenList] element or attribute name are required.`);
+
         return AttributeTokenList.getIntance(element, attribute, opt);
     }
 }

@@ -5,7 +5,7 @@ import boolean from "./types/boolean.js";
 import string from "./types/string.js";
 
 
-export const Attr = {
+export const AttributesUtils = {
     color,
     list,
     number,
@@ -13,4 +13,4 @@ export const Attr = {
     string
 }
 
-export default Attr;
+export default AttributesUtils;

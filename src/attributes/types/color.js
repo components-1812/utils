@@ -1,5 +1,5 @@
 
-
+//MARK: Color Class
 export class Color {
 
     static canvas = null;
@@ -68,8 +68,8 @@ export class Color {
 
         return {
             h: Math.round(h),
-            s: Number((s * 100).toFixed(2)),
-            l: Number((l * 100).toFixed(2)),
+            s: Math.round(s * 100),
+            l: Math.round(l * 100),
         };
     }
 
@@ -185,7 +185,7 @@ export class Color {
     }
 }
 
-
+//MARK: Color Utils
 export const ColorUtils = {
 
     Color,
@@ -196,6 +196,8 @@ export const ColorUtils = {
     },
 
     get(element, name, defaultValue, opt = {}) {
+
+        if(!element || !name) console.warn(`[Get Color Attribute] element or attribute name are required.`);
 
         const value = element.getAttribute(name);
 
@@ -212,13 +214,20 @@ export const ColorUtils = {
         }
         catch (error) {
 
-            console.warn(`[Color Exception] ${element.tagName.toLowerCase()}[${name}]`, error);
+            console.warn(`[Get Color Attribute] ${element.tagName.toLowerCase()}[${name}]`, error);
         }
 
         return defaultValue;
     },
 
     set(element, name, value, opt = {}) {
+
+        if(!element || !name) console.warn(`[Set Color Attribute] element or attribute name are required.`);
+
+        if(value == null) {
+            element.removeAttribute(name);
+            return;
+        }
 
         const {
             validate = () => true
@@ -235,7 +244,7 @@ export const ColorUtils = {
         }
         catch (error) {
 
-            console.warn(`[Color Exception] ${element.tagName.toLowerCase()}[${name}]`, error);
+            console.warn(`[Set Color Attribute] ${element.tagName.toLowerCase()}[${name}]`, error);
         }
 
         return false;

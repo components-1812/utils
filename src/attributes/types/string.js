@@ -2,6 +2,8 @@
 export const StringUtils = {
 
     set(element, name, value, opt = {}) {
+
+        if(!element || !name) console.warn(`[Set String Attribute] element or attribute name are required.`);
     
         if(value == null) {
             element.removeAttribute(name);
@@ -21,13 +23,15 @@ export const StringUtils = {
             }
         }
         catch (error) {
-            console.warn(`[String Exception] ${element.tagName.toLowerCase()}[${name}]`, error);
+            console.warn(`[Set String Attribute] ${element.tagName.toLowerCase()}[${name}]`, error);
         }
 
         return false;
     },
 
     get(element, name, defaultValue = null, opt = {}){
+
+        if(!element || !name) console.warn(`[Get String Attribute] element or attribute name are required.`);
     
         let value = element.getAttribute(name);
     
