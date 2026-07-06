@@ -1,6 +1,6 @@
 
 
-function createElement(createElementFn = (tagName) => document.createElement(tagName)) {
+export function createElement(createElementFn = (tagName) => document.createElement(tagName)) {
 
     return function(tagName, opt = {}) {
     
