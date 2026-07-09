@@ -9,19 +9,32 @@ export function createElement(createElementFn = (tagName) => document.createElem
         const element = createElementFn(tagName);
     
         //MARK: Classes
-        if(Array.isArray(classes)) element.classList.add(...classes);
+        if(Array.isArray(classes)) {
+
+            const filtered = classes.filter(cls => typeof cls === 'string');
+
+            if(filtered.length) element.classList.add(...filtered);
+        }
     
         //MARK: Attributes
         if(typeof attributes === 'object' && attributes !== null) {
+
             for(let attribute in attributes) {
-                element.setAttribute(attribute, attributes[attribute]);
+
+                const value = attributes[attribute];
+
+                if(value != null) element.setAttribute(attribute, String(value));
             }
         }
     
         //MARK: Data Attributes
         if(typeof data === 'object' && data !== null) {
+
             for(let attribute in data) {
-                element.setAttribute(`data-${attribute}`, data[attribute]);
+
+                const value = data[attribute];
+
+                if(value != null) element.setAttribute(`data-${attribute}`, String(value));
             }
         }
     
@@ -33,8 +46,10 @@ export function createElement(createElementFn = (tagName) => document.createElem
     
         //MARK: Children
         if(Array.isArray(children)) {
+
             for(let child of children) {
-                element.append(child);
+
+                if(child instanceof Node) element.append(child);
             }
         }
     
