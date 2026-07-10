@@ -4,9 +4,18 @@ export function createElement(createElementFn = (tagName) => document.createElem
 
     return function(tagName, opt = {}) {
     
-        const {classes = [], attributes = {}, data, textContent, children = [], html } = opt;
+        const {classes = [], attributes = {}, styles = {}, data, textContent, children = [], html } = opt;
     
         const element = createElementFn(tagName);
+    
+        //MARK: Styles
+        if(typeof styles === 'object' && styles !== null) {
+
+            for(let [style, value] of Object.entries(styles)) {
+
+                if(value != null) element.style.setProperty(style, String(value));
+            }
+        }
     
         //MARK: Classes
         if(Array.isArray(classes)) {
@@ -19,9 +28,7 @@ export function createElement(createElementFn = (tagName) => document.createElem
         //MARK: Attributes
         if(typeof attributes === 'object' && attributes !== null) {
 
-            for(let attribute in attributes) {
-
-                const value = attributes[attribute];
+            for(let [attribute, value] of Object.entries(attributes)) {
 
                 if(value != null) element.setAttribute(attribute, String(value));
             }
@@ -30,9 +37,7 @@ export function createElement(createElementFn = (tagName) => document.createElem
         //MARK: Data Attributes
         if(typeof data === 'object' && data !== null) {
 
-            for(let attribute in data) {
-
-                const value = data[attribute];
+            for(let [attribute, value] of Object.entries(data)) {
 
                 if(value != null) element.setAttribute(`data-${attribute}`, String(value));
             }
